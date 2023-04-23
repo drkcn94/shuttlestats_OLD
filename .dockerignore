@@ -1,0 +1,5 @@
+# Exclude build artifacts
+target/
+
+# Exclude IDE-related files
+.idea/
