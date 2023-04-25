@@ -2,6 +2,7 @@ package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Match;
 import com.badminton.shuttlestats.model.Player;
+import com.badminton.shuttlestats.model.keys.MatchId;
 import com.badminton.shuttlestats.services.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,15 @@ public class MatchController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @DeleteMapping("/session={sessionId}/match={matchId}")
+    public ResponseEntity<Match> deleteMatch(@PathVariable String sessionId, String matchId) {
+        UUID sessionIdToFind = UUID.fromString(sessionId);
+        UUID matchIdToFind = UUID.fromString(matchId);
+
+        MatchId matchToDelete = new MatchId(sessionIdToFind,matchIdToFind);
+        matchService.deleteMatchById(matchToDelete);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,6 +4,7 @@ import com.badminton.shuttlestats.model.Match;
 import com.badminton.shuttlestats.model.Player;
 import com.badminton.shuttlestats.model.enums.Gender;
 import com.badminton.shuttlestats.model.enums.matchType;
+import com.badminton.shuttlestats.model.keys.MatchId;
 import com.badminton.shuttlestats.repositories.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,9 @@ public class MatchService {
         matchRepository.save(toSave);
         return toSave;
     }
+
+    public void deleteMatchById(MatchId id) { matchRepository.deleteById(id);}
+
     public String defineMatchType(List<Player> playersInGame) {
 
         String matchReturnType = matchType.OTHER_SINGLES.toString();
