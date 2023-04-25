@@ -28,9 +28,9 @@ public class MatchController {
     }
 
     @PostMapping("/session/match")
-    public ResponseEntity<Match> addMatch(@RequestBody UUID sessionId, List<Player> playersInGame, int teamOneScore, int teamTwoScore) {
+    public ResponseEntity<Match> addMatch(@RequestBody UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
         try {
-            Match savedMatch = this.matchService.saveMatch(sessionId, playersInGame, teamOneScore,teamTwoScore);
+            Match savedMatch = this.matchService.saveMatch(sessionId, teamOnePlayers, teamTwoPlayers, teamOneScore,teamTwoScore);
             return new ResponseEntity<>(savedMatch, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

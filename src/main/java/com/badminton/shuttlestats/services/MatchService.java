@@ -26,26 +26,29 @@ public class MatchService {
 
 
     // TO BE COMPLETED
-    public Match saveMatch(UUID sessionId, List<Player> playersInGame, int teamOneScore, int teamTwoScore) {
-        if(playersInGame.size() != 2 || playersInGame.size() != 4) {
-            throw new IllegalArgumentException("Invalid number of players");
+    public Match saveMatch(UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+        if(teamOnePlayers == null || teamTwoPlayers == null) {
+            throw new IllegalArgumentException();
         }
 
         Match toSave = new Match(sessionId);
 
-        toSave.setMatchType(defineMatchType(playersInGame));
+        toSave.setMatchType(defineMatchType(teamOnePlayers, teamTwoPlayers).toString());
         toSave.setTeamOneScore(teamOneScore);
         toSave.setTeamTwoScore(teamTwoScore);
 
-        if (playersInGame.size() == 2) {
-            toSave.setPlayerOneId(playersInGame.get(0).getPlayerId());
-            toSave.setPlayerTwoId(playersInGame.get(1).getPlayerId());
-
-        } else {
-            toSave.setPlayerOneId(playersInGame.get(0).getPlayerId());
-            toSave.setPlayerTwoId(playersInGame.get(1).getPlayerId());
-            toSave.setPlayerThreeId(playersInGame.get(2).getPlayerId());
-            toSave.setPlayerFourId(playersInGame.get(3).getPlayerId());
+        if (teamOnePlayers.size() == 1 && teamTwoPlayers.size() == 1) {
+            toSave.setPlayerOneId(teamOnePlayers.get(0).getPlayerId());
+            toSave.setPlayerTwoId(teamTwoPlayers.get(0).getPlayerId());
+        }
+        else if (teamOnePlayers.size() == 2 && teamTwoPlayers.size() == 2) {
+            toSave.setPlayerOneId(teamOnePlayers.get(0).getPlayerId());
+            toSave.setPlayerTwoId(teamOnePlayers.get(1).getPlayerId());
+            toSave.setPlayerThreeId(teamTwoPlayers.get(0).getPlayerId());
+            toSave.setPlayerFourId(teamTwoPlayers.get(1).getPlayerId());
+        }
+        else {
+            throw new IllegalArgumentException();
         }
 
         matchRepository.save(toSave);
@@ -54,46 +57,46 @@ public class MatchService {
 
     public void deleteMatchById(MatchId id) { matchRepository.deleteById(id);}
 
-    public String defineMatchType(List<Player> playersInGame) {
+    public Enum defineMatchType(List<Player> teamOnePlayers, List<Player> teamTwoPlayers) {
 
-        String matchReturnType = matchType.OTHER_SINGLES.toString();
-        if (playersInGame.size() == 2) {
-            if (playersInGame.get(0).getPlayerGender() == Gender.MALE.toString() && playersInGame.get(1).getPlayerGender() == Gender.MALE.toString()) {
-                matchReturnType = matchType.MENS_SINGLES.toString();
+        Enum<matchType> matchReturnType = matchType.OTHER_SINGLES;
+        if (teamOnePlayers.size() == 1 && teamTwoPlayers.size() == 1) {
+            if (teamOnePlayers.get(0).getPlayerGender() == Gender.MALE.toString() && teamTwoPlayers.get(0).getPlayerGender() == Gender.MALE.toString()) {
+                matchReturnType = matchType.MENS_SINGLES;
             }
-            else if (playersInGame.get(0).getPlayerGender() == Gender.FEMALE.toString() && playersInGame.get(1).getPlayerGender() == Gender.FEMALE.toString()) {
-                matchReturnType = matchType.WOMENS_SINGLES.toString();
+            else if (teamOnePlayers.get(0).getPlayerGender() == Gender.FEMALE.toString() && teamTwoPlayers.get(0).getPlayerGender() == Gender.FEMALE.toString()) {
+                matchReturnType = matchType.WOMENS_SINGLES;
             }
         }
         else {
-            matchReturnType = matchType.OTHER_DOUBLES.toString();
+            matchReturnType = matchType.OTHER_DOUBLES;
             int teamOneGender = 0;
             int teamTwoGender = 0;
 
-            for (int i = 0; i < playersInGame.size(); i++) {
-                if(i <= 1) {
-                    if (playersInGame.get(i).getPlayerGender() == Gender.MALE.toString()) {
-                        teamOneGender++;
-                    }
-                    else {
-                        teamOneGender--;
-                    }
+            for (Player player: teamOnePlayers) {
+                if (player.getPlayerGender() == Gender.MALE.toString()) {
+                    teamOneGender++;
                 }
                 else {
-                    if (playersInGame.get(i).getPlayerGender() == Gender.MALE.toString()) {
-                        teamTwoGender++;
-                    }
-                    else {
-                        teamTwoGender--;
-                    }
+                    teamOneGender--;
                 }
             }
+
+            for (Player player: teamTwoPlayers) {
+                if (player.getPlayerGender() == Gender.MALE.toString()) {
+                    teamOneGender++;
+                }
+                else {
+                    teamTwoGender--;
+                }
+            }
+
             if (teamOneGender == 2 && teamTwoGender == 2) {
-                matchReturnType = matchType.MENS_DOUBLES.toString();
+                matchReturnType = matchType.MENS_DOUBLES;
             } else if (teamOneGender == -2 && teamTwoGender == 2) {
-                matchReturnType = matchType.WOMENS_DOUBLES.toString();
+                matchReturnType = matchType.WOMENS_DOUBLES;
             } else if (teamOneGender == 0 && teamTwoGender == 0) {
-                matchReturnType = matchType.MIXED_DOUBLES.toString();
+                matchReturnType = matchType.MIXED_DOUBLES;
             }
         }
         return matchReturnType;
