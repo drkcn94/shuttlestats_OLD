@@ -48,11 +48,23 @@ public class PlayerController {
     }
     @PostMapping("/player")
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
-        Player savedPlayer = this.playerService.savePlayer(player);
-        return new ResponseEntity<>(savedPlayer,HttpStatus.OK);
+        try {
+            Player savedPlayer = this.playerService.savePlayer(player);
+            return new ResponseEntity<>(savedPlayer,HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
-    @DeleteMapping("/player/{playerIdString}")
+//    @PutMapping("/player={playerId}")
+//    public ResponseEntity<Player> updatePlayer(@PathVariable UUID playerId, @RequestBody Player player) {
+//        try {
+//
+//        }
+//    }
+
+    @DeleteMapping("/player={playerIdString}")
     public ResponseEntity<Void> deletePlayerById(@PathVariable String playerIdString) {
         UUID playerId = UUID.fromString(playerIdString);
         rosterService.deleteRosterByPlayerId(playerId);
