@@ -24,8 +24,7 @@ public class PlayerService {
     }
     public Player savePlayer(Player playerDetails) {
         Player toSave = new Player(playerDetails.getPlayerName(),playerDetails.getPlayerGender(),playerDetails.getPlayerMainHand());
-        playerRepository.save(toSave);
-        return toSave;
+        return playerRepository.save(toSave);
     }
     public Optional<Player> getPlayerById(UUID id) {
         return playerRepository.findById(id);

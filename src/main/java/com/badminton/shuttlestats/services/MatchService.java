@@ -55,9 +55,37 @@ public class MatchService {
         return toSave;
     }
 
+    public Match updateMatch(UUID sessionId, UUID matchId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+        if(teamOnePlayers == null || teamTwoPlayers == null) {
+            throw new IllegalArgumentException();
+        }
+        validateScore(teamOneScore,teamTwoScore);
+
+        MatchId matchToFind = new MatchId(sessionId, matchId);
+
+        Match toUpdate = matchRepository.getById(matchToFind);
+
+        if(toUpdate.getMatchType() != defineMatchType(teamOnePlayers, teamTwoPlayers).toString()) {
+            toUpdate.setMatchType(defineMatchType(teamOnePlayers, teamTwoPlayers).toString());
+        }
+
+        toUpdate.setPlayerOneId(teamOnePlayers.get(0).getPlayerId());
+        toUpdate.setPlayerTwoId(teamOnePlayers.get(1).getPlayerId());
+        toUpdate.setPlayerThreeId(teamTwoPlayers.get(0).getPlayerId());
+        toUpdate.setPlayerFourId(teamTwoPlayers.get(1).getPlayerId());
+
+        toUpdate.setTeamOneScore(teamOneScore);
+        toUpdate.setTeamTwoScore(teamTwoScore);
+
+        return matchRepository.save(toUpdate);
+    }
+
     public void deleteMatchById(MatchId id) { matchRepository.deleteById(id);}
 
     public Enum defineMatchType(List<Player> teamOnePlayers, List<Player> teamTwoPlayers) {
+        if(teamOnePlayers == null || teamTwoPlayers == null) {
+            throw new IllegalArgumentException();
+        }
 
         Enum<matchType> matchReturnType = matchType.OTHER_SINGLES;
         if (teamOnePlayers.size() == 1 && teamTwoPlayers.size() == 1) {
@@ -100,5 +128,18 @@ public class MatchService {
             }
         }
         return matchReturnType;
+    }
+
+    public void validateScore(int teamOneScore, int teamTwoScore) {
+        if(teamOneScore < 0 || teamOneScore > 30 ||
+            teamTwoScore < 0 || teamTwoScore > 30) {
+            throw new IllegalArgumentException();
+        }
+
+        int totalScore = teamOneScore + teamTwoScore;
+
+        if (totalScore < 21 || (totalScore > 40 && totalScore < 42 ) || totalScore > 59) {
+            throw new IllegalArgumentException();
+        }
     }
 }
