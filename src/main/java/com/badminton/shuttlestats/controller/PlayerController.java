@@ -57,12 +57,15 @@ public class PlayerController {
 
     }
 
-//    @PutMapping("/player={playerId}")
-//    public ResponseEntity<Player> updatePlayer(@PathVariable UUID playerId, @RequestBody Player player) {
-//        try {
-//
-//        }
-//    }
+    @PutMapping("/player={playerId}")
+    public ResponseEntity<Player> updatePlayer(@PathVariable UUID playerId, @RequestBody Player player) {
+        try {
+            Player updatedPlayer = playerService.updatePlayer(playerId, player);
+            return new ResponseEntity<>(player, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @DeleteMapping("/player={playerIdString}")
     public ResponseEntity<Void> deletePlayerById(@PathVariable String playerIdString) {
