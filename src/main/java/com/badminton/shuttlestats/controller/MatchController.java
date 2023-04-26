@@ -38,9 +38,12 @@ public class MatchController {
     }
 
     @PutMapping("/session={sessionId}/match={matchId}")
-    public ResponseEntity<Match> updateMatch(@RequestBody UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+    public ResponseEntity<Match> updateMatch(@PathVariable UUID sessionId, @PathVariable UUID matchId, @RequestBody List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
         try {
-            Match updatedMatch = matchService.updateMatch()
+            Match updatedMatch = matchService.updateMatch(sessionId, matchId, teamOnePlayers, teamTwoPlayers, teamOneScore, teamTwoScore);
+            return new ResponseEntity<>(updatedMatch, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
