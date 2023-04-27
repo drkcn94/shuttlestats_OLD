@@ -1,8 +1,11 @@
 package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Player;
+import com.badminton.shuttlestats.model.enums.Gender;
+import com.badminton.shuttlestats.model.enums.MainHand;
 import com.badminton.shuttlestats.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,8 @@ public class PlayerService {
         return playerRepository.existsById(playerId);
     }
     public Player savePlayer(Player playerDetails) {
+        validatePlayer(playerDetails);
+
         Player toSave = new Player(playerDetails.getPlayerName(),playerDetails.getPlayerGender(),playerDetails.getPlayerMainHand());
         return playerRepository.save(toSave);
     }
@@ -31,6 +36,8 @@ public class PlayerService {
         if (player == null || playerId != player.getPlayerId()) {
             throw new IllegalArgumentException();
         }
+
+        validatePlayer(player);
 
         Optional<Player> playerToFind = Optional.of(playerRepository.getReferenceById(playerId));
         if(playerToFind.isEmpty()) {
@@ -48,6 +55,24 @@ public class PlayerService {
     }
     public void deletePlayerById(UUID id) {
         playerRepository.deleteById(id);
+    }
+
+    public void validatePlayer(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if(player.getPlayerName().matches(".*[=()/\\\\{}\\[\\]&*:!?].*")) {
+            throw new IllegalArgumentException();
+        }
+
+        if(player.getPlayerGender() != Gender.MALE.toString() && player.getPlayerGender() != Gender.FEMALE.toString()) {
+            throw new IllegalArgumentException();
+        }
+
+        if(player.getPlayerMainHand() != MainHand.RIGHT.toString() && player.getPlayerMainHand() != MainHand.LEFT.toString()) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }
