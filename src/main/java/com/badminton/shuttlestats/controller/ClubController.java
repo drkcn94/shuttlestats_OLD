@@ -86,13 +86,14 @@ public class ClubController {
 
     @PostMapping("/club")
     public ResponseEntity<Club> addClub(@RequestBody Club club) {
-        Club savedClub = this.clubService.saveClub(club);
+        Club savedClub = clubService.saveClub(club);
         return new ResponseEntity<>(savedClub, HttpStatus.OK);
     }
 
     @PostMapping("/club/{playerId}")
-    public ResponseEntity<Player> addPlayerToClubRoster(@PathVariable String playerId) {
-
+    public ResponseEntity<Player> addPlayerToClubRoster(@RequestBody Club club, Player player) {
+        clubService.addPlayerToClub(club.getClubId(), player);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/club/{clubIdString}")
