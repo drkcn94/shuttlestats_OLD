@@ -26,6 +26,7 @@ public class PlayerService {
         return playerRepository.existsById(playerId);
     }
     public Player savePlayer(Player playerDetails) {
+
         validatePlayer(playerDetails);
 
         Player toSave = new Player(playerDetails.getPlayerName(),playerDetails.getPlayerGender(),playerDetails.getPlayerMainHand());
@@ -33,7 +34,7 @@ public class PlayerService {
     }
 
     public Player updatePlayer(UUID playerId, Player player) {
-        if (player == null || playerId != player.getPlayerId()) {
+        if (player == null) {
             throw new IllegalArgumentException();
         }
 
@@ -44,7 +45,7 @@ public class PlayerService {
             throw new IllegalArgumentException();
         }
 
-        if (playerToFind.get().getPlayerId() != playerId || playerToFind.get().getPlayerId() != player.getPlayerId()) {
+        if (playerToFind.get().getPlayerId() != playerId) {
             throw new IllegalArgumentException();
         }
 
@@ -66,11 +67,11 @@ public class PlayerService {
             throw new IllegalArgumentException();
         }
 
-        if(player.getPlayerGender() != Gender.MALE.toString() && player.getPlayerGender() != Gender.FEMALE.toString()) {
+        if(!(player.getPlayerGender().equals(Gender.MALE.toString())) && !(player.getPlayerGender().equals(Gender.FEMALE.toString()))) {
             throw new IllegalArgumentException();
         }
 
-        if(player.getPlayerMainHand() != MainHand.RIGHT.toString() && player.getPlayerMainHand() != MainHand.LEFT.toString()) {
+        if(!(player.getPlayerMainHand().equals(MainHand.RIGHT.toString())) && !(player.getPlayerMainHand().equals(MainHand.LEFT.toString()))) {
             throw new IllegalArgumentException();
         }
     }

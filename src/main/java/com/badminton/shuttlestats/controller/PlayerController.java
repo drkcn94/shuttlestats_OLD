@@ -58,10 +58,10 @@ public class PlayerController {
     }
 
     @PutMapping("/player={playerId}")
-    public ResponseEntity<Player> updatePlayer(@PathVariable UUID playerId, @RequestBody Player player) {
+    public ResponseEntity<Player> updatePlayer(@PathVariable String playerId, @RequestBody Player player) {
         try {
-            Player updatedPlayer = playerService.updatePlayer(playerId, player);
-            return new ResponseEntity<>(player, HttpStatus.OK);
+            Player updatedPlayer = playerService.updatePlayer(UUID.fromString(playerId), player);
+            return new ResponseEntity<>(updatedPlayer, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

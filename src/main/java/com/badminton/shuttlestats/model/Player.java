@@ -9,7 +9,7 @@ public class Player {
 
     @Id
     @GeneratedValue
-    @Column(name = "player_id")
+    @Column(name = "player_id", columnDefinition = "BINARY(16)")
     private UUID playerId;
 
     @Column(name = "name")
@@ -27,11 +27,11 @@ public class Player {
         this.mainHand = player.getPlayerMainHand();
     }
 
-    public Player(String playerName, String playerGender, String playerMainHand) {
+    public Player(String Name, String Gender, String MainHand) {
         this.playerId = UUID.randomUUID();
-        this.name = playerName;
-        this.gender = playerGender;
-        this.mainHand = playerMainHand;
+        this.name = Name;
+        this.gender = Gender;
+        this.mainHand = MainHand;
     }
 
     public UUID getPlayerId() {
