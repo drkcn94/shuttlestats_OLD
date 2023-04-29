@@ -27,6 +27,13 @@ public class RosterController {
         return new ResponseEntity<Roster>(HttpStatus.OK);
     }
 
-
+    @DeleteMapping("/deleteRoster")
+    public ResponseEntity<Void> deleteRoster(@PathVariable String clubId){
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/deletePlayer")
+    public ResponseEntity<Void> deletePlayerFromRoster(@PathVariable String clubId, Player player) {
+        return ResponseEntity.noContent().build();
+    }
 
 }
