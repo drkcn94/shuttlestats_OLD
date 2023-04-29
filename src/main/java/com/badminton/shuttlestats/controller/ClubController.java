@@ -48,17 +48,21 @@ public class ClubController {
         }
     }
 
-    @GetMapping("/{clubId}/members")
-    public List<UUID> getPlayerIdsOfClub(@PathVariable UUID clubId) {
+    @GetMapping("/{clubId}/players")
+    public List<Player> getAllPlayersOfClub(@PathVariable UUID clubId) {
         List<Roster> rosterIds = rosterService.findPlayersByClubId(clubId);
 
-        List<UUID> playerIds = new ArrayList<>();
+        List<UUID> playerIdsOfClub = new ArrayList<>();
 
-        for(Roster player : rosterIds) {
-            playerIds.add(player.getClubId());
+        for (Roster playerId : rosterIds) {
+            playerIdsOfClub.add(playerId.getPlayerId());
         }
 
-        return playerIds;
+        List<Player> playersOfClub = playerService.findAllPlayersOfClub(playerIdsOfClub);
+
+
+
+        return playersOfClub;
     }
 
     @GetMapping("/{clubId}/member/{playerId}")
@@ -84,6 +88,11 @@ public class ClubController {
     public ResponseEntity<Club> addClub(@RequestBody Club club) {
         Club savedClub = this.clubService.saveClub(club);
         return new ResponseEntity<>(savedClub, HttpStatus.OK);
+    }
+
+    @PostMapping("/club/{playerId}")
+    public ResponseEntity<Player> addPlayerToClubRoster(@PathVariable String playerId) {
+
     }
 
     @DeleteMapping("/club/{clubIdString}")

@@ -26,7 +26,7 @@ public class PlayerController {
 
     @GetMapping("/")
     public ResponseEntity<List<Player>> getAllPlayers() {
-        return new ResponseEntity<>(playerService.getAllPlayers(), HttpStatus.OK);
+        return new ResponseEntity<>(playerService.findAllPlayers(), HttpStatus.OK);
     }
 
     // Look into PlayerService Implementation that uses criteria to find players instead of this function

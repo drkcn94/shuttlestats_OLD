@@ -1,6 +1,7 @@
 package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Player;
+import com.badminton.shuttlestats.model.Roster;
 import com.badminton.shuttlestats.model.enums.Gender;
 import com.badminton.shuttlestats.model.enums.MainHand;
 import com.badminton.shuttlestats.repositories.PlayerRepository;
@@ -19,8 +20,12 @@ public class PlayerService {
 
     public PlayerService() {}
 
-    public List<Player> getAllPlayers() {
+    public List<Player> findAllPlayers() {
         return playerRepository.findAll();
+    }
+
+    public List<Player> findAllPlayersOfClub(List<UUID> playerIds) {
+        return playerRepository.findAllByplayerIdIn(playerIds);
     }
     public boolean checkPlayerExistsById(UUID playerId) {
         return playerRepository.existsById(playerId);

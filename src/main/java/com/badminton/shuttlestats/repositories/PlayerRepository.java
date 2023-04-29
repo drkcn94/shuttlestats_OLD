@@ -1,6 +1,7 @@
 package com.badminton.shuttlestats.repositories;
 
 import com.badminton.shuttlestats.model.Player;
+import com.badminton.shuttlestats.model.Roster;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface PlayerRepository extends JpaRepository<Player, UUID> {
     List<Player> findBymainHandAndGender(String mainHand, String Gender);
 
     void deleteById(UUID uuid);
+
+    List<Player> findAllByplayerIdIn(List<UUID> playerIds);
 }
