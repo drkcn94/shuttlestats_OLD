@@ -40,12 +40,12 @@ public class PlayerService {
 
         validatePlayer(player);
 
-        Optional<Player> playerToFind = Optional.of(playerRepository.getReferenceById(playerId));
-        if(playerToFind.isEmpty()) {
+        Player playerToFind = playerRepository.getReferenceById(playerId);
+        if(playerToFind == null) {
             throw new IllegalArgumentException();
         }
 
-        if (playerToFind.get().getPlayerId() != playerId) {
+        if (playerToFind.getPlayerId() != playerId) {
             throw new IllegalArgumentException();
         }
 
