@@ -26,9 +26,11 @@ public class ClubService {
     public List<Club> getAllClubs() {
         return clubRepository.findAll();
     }
+
     public Optional<Club> getClubById(UUID clubId) {
         return clubRepository.findById(clubId);
     }
+
     public Club saveClub(Club clubDetails) {
         Club toSave = new Club(clubDetails.getClubName(), clubDetails.getPublicVisibility());
         clubRepository.save(toSave);
