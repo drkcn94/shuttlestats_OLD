@@ -15,17 +15,13 @@ import java.util.UUID;
 @Service
 public class ClubService {
     @Autowired
-    private final ClubRepository clubRepository;
+    private ClubRepository clubRepository;
     @Autowired
-    private final PlayerService playerService;
+    private PlayerService playerService;
     @Autowired
-    private final RosterService rosterService;
+    private RosterService rosterService;
 
-    public ClubService(ClubRepository clubRepository, PlayerService playerService, RosterService rosterService) {
-        this.clubRepository = clubRepository;
-        this.playerService = playerService;
-        this.rosterService = rosterService;
-    }
+    public ClubService() {}
 
     public List<Club> getAllClubs() {
         return clubRepository.findAll();
