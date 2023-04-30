@@ -5,6 +5,7 @@ import com.badminton.shuttlestats.model.keys.RosterId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,14 +17,18 @@ public class Roster implements Serializable {
     private RosterId id;
     @Column(name = "join_date")
     private LocalDate joinDate;
-    @OneToOne
+    @ManyToOne
     @MapsId("clubId")
+    @JoinColumn(name = "club_id")
     private Club club;
     @ManyToMany
     @JoinTable(
             name = "roster_player",
-            joinColumns = @JoinColumn(name = "roster_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id")
+            joinColumns = {
+                    @JoinColumn(name = "club_id", referencedColumnName = "club_id"),
+                    @JoinColumn(name = "player_id", referencedColumnName = "player_id")
+            },
+            inverseJoinColumns = @JoinColumn(name = "roster_id")
     )
     private Set<Player> players;
 
@@ -37,6 +42,14 @@ public class Roster implements Serializable {
     public Roster(UUID clubId, UUID playerId){
         this.id = new RosterId(clubId, playerId);
         this.joinDate = LocalDate.now();
+    }
+
+    public Roster(Club club, Player player, LocalDate joinDate) {
+        this.id = new RosterId(club.getClubId(), player.getPlayerId());
+        this.club = club;
+        this.players = new HashSet<>();
+        this.players.add(player);
+        this.joinDate = joinDate;
     }
 
     public UUID getClubId() {

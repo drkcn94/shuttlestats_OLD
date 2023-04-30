@@ -1,6 +1,7 @@
 package com.badminton.shuttlestats.model;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +19,9 @@ public class Player {
     private String gender;
     @Column(name = "main_hand")
     private String mainHand;
+
+    @ManyToMany(mappedBy = "players")
+    private Set<Roster> rosters;
 
     public Player() {}
 
