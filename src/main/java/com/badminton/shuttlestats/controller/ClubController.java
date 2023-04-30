@@ -99,7 +99,6 @@ public class ClubController {
     @DeleteMapping("/club/{clubIdString}")
     public ResponseEntity<Void> deleteClubById(@PathVariable String clubIdString) {
         UUID clubId = UUID.fromString(clubIdString);
-        rosterService.deleteRosterByClubId(clubId);
         clubService.deleteClubById(clubId);
         return ResponseEntity.noContent().build();
     }

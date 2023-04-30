@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/clubs/{clubId}/roster")
+@RequestMapping("/clubs={clubId}/roster")
 public class RosterController {
 
     @Autowired
@@ -22,9 +23,10 @@ public class RosterController {
         return new ResponseEntity<List<Player>>(HttpStatus.OK);
     }
 
-    @PostMapping("/addPlayer")
-    public ResponseEntity<Roster> addPlayerToRoster(@PathVariable String clubId, Player player) {
-        return new ResponseEntity<Roster>(HttpStatus.OK);
+    @PostMapping("/addPlayer={playerId}")
+    public ResponseEntity<Roster> addPlayerToClubRoster(@PathVariable String clubId, @PathVariable String playerId) {
+        rosterService.savePlayerToRoster(clubId, playerId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteRoster")

@@ -39,18 +39,6 @@ public class ClubService {
         return toSave;
     }
 
-    public void addPlayerToClub(UUID clubId, Player player) {
-        /*
-        * Chicken or Egg Situation? Need to find out if player being added to Club Roster
-        * already exists in Player Table, if they do then just add them into Club Roster Table,
-        * if not, need to add the player to the player table first
-        */
-        if (!playerService.checkPlayerExistsById(player.getPlayerId())) {
-            playerService.savePlayer(player);
-        }
-        rosterService.savePlayerToRoster(clubId,player.getPlayerId());
-    }
-
     public void deleteClubById(UUID clubId) {
         clubRepository.deleteById(clubId);
     }
