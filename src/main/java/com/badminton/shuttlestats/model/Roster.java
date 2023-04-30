@@ -13,6 +13,11 @@ public class Roster implements Serializable {
 
     @EmbeddedId
     private RosterId id;
+
+    @ManyToOne
+    @JoinColumn(name = "club_id", insertable = false, updatable = false)
+    private Club club;
+
     @Column(name = "join_date")
     private LocalDate joinDate;
 
