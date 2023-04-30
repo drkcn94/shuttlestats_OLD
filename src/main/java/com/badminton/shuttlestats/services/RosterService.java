@@ -21,9 +21,7 @@ public class RosterService {
     public RosterService() {}
 
     public void savePlayerToRoster(String clubId, String playerId) {
-        Roster roster = new Roster();
-        roster.setId(UUID.fromString(clubId),UUID.fromString(playerId));
-        roster.setJoinDate(LocalDate.now());
+        Roster roster = new Roster(UUID.fromString(clubId), UUID.fromString(playerId));
         rosterRepository.save(roster);
     }
 

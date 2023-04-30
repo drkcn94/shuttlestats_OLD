@@ -28,9 +28,8 @@ public class Roster implements Serializable {
         this.joinDate = joinDate;
     }
 
-    public Roster(UUID clubId, UUID playerId) {
-        this.id.setClubId(clubId);
-        this.id.setPlayerId(playerId);
+    public Roster(UUID clubId, UUID playerId){
+        this.id = new RosterId(clubId, playerId);
         this.joinDate = LocalDate.now();
     }
 

@@ -13,6 +13,8 @@ public class RosterId implements Serializable {
     @Column(name = "player_id")
     private UUID playerId;
 
+    public RosterId() {}
+
     public RosterId(UUID clubId, UUID playerId) {
         this.clubId = clubId;
         this.playerId = playerId;
