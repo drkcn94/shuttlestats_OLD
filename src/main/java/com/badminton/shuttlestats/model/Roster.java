@@ -14,8 +14,8 @@ public class Roster implements Serializable {
     @EmbeddedId
     private RosterId id;
 
-    @ManyToOne
-    @JoinColumn(name = "club_id", insertable = false, updatable = false)
+    @OneToOne
+    @MapsId("clubId")
     private Club club;
 
     @Column(name = "join_date")
@@ -39,6 +39,8 @@ public class Roster implements Serializable {
 
     public UUID getPlayerId() { return id.getPlayerId(); }
 
+    public Club getClub() { return club; }
+
     public void setId(UUID clubId, UUID playerId) {
         id.setClubId(clubId);
         id.setPlayerId(playerId);
@@ -46,6 +48,10 @@ public class Roster implements Serializable {
 
     public void setId(RosterId rosterId) {
         this.id = rosterId;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public LocalDate getJoinDate() {

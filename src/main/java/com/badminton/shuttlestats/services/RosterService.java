@@ -1,5 +1,6 @@
 package com.badminton.shuttlestats.services;
 
+import com.badminton.shuttlestats.model.Club;
 import com.badminton.shuttlestats.model.Player;
 import com.badminton.shuttlestats.model.Roster;
 import com.badminton.shuttlestats.repositories.RosterRepository;
@@ -17,11 +18,14 @@ public class RosterService {
     private RosterRepository rosterRepository;
     @Autowired
     private PlayerService playerService;
-
     public RosterService() {}
 
+
+    // TO COMPLETE
     public void savePlayerToRoster(String clubId, String playerId) {
+
         Roster roster = new Roster(UUID.fromString(clubId), UUID.fromString(playerId));
+        roster.setClub(club.get());
         rosterRepository.save(roster);
     }
 
