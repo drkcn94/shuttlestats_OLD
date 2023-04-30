@@ -37,6 +37,19 @@ public class ClubService {
         return toSave;
     }
 
+    public Club updateClub(Club clubDetails) {
+        if(clubDetails == null) {
+            throw new IllegalArgumentException();
+        }
+
+        Optional<Club> toFind = clubRepository.findById(clubDetails.getClubId());
+
+        if(toFind.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        return clubRepository.save(clubDetails);
+    }
+
     public void deleteClubById(UUID clubId) {
         clubRepository.deleteById(clubId);
     }
