@@ -1,7 +1,5 @@
 package com.badminton.shuttlestats.model;
 
-import net.bytebuddy.asm.Advice;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -18,7 +16,6 @@ public class Club {
     private String clubName;
     @Column(name = "creation_date")
     private LocalDate creationDate;
-
     @Column(name = "public_visibility")
     private Boolean publicVisibility;
 
