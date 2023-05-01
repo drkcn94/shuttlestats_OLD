@@ -7,15 +7,15 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
-public class RosterId implements Serializable {
+public class ClubMemberId implements Serializable {
     @Column(name = "club_id")
     private UUID clubId;
     @Column(name = "player_id")
     private UUID playerId;
 
-    public RosterId() {}
+    public ClubMemberId() {}
 
-    public RosterId(UUID clubId, UUID playerId) {
+    public ClubMemberId(UUID clubId, UUID playerId) {
         this.clubId = clubId;
         this.playerId = playerId;
     }
@@ -38,7 +38,7 @@ public class RosterId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RosterId rosterId = (RosterId) o;
+        ClubMemberId rosterId = (ClubMemberId) o;
         return Objects.equals(clubId, rosterId.clubId) && Objects.equals(playerId, rosterId.playerId);
     }
 

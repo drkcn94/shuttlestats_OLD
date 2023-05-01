@@ -1,13 +1,10 @@
 package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Club;
-import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.Roster;
 import com.badminton.shuttlestats.repositories.ClubRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +16,7 @@ public class ClubService {
     @Autowired
     private PlayerService playerService;
     @Autowired
-    private RosterService rosterService;
+    private ClubMemberService clubMemberService;
 
     public ClubService() {}
 

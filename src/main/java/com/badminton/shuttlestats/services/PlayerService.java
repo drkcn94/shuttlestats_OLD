@@ -1,12 +1,10 @@
 package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.Roster;
 import com.badminton.shuttlestats.model.enums.Gender;
 import com.badminton.shuttlestats.model.enums.MainHand;
 import com.badminton.shuttlestats.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

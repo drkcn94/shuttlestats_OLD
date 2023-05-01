@@ -1,22 +1,21 @@
 package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.Roster;
-import com.badminton.shuttlestats.services.RosterService;
+import com.badminton.shuttlestats.model.ClubMember;
+import com.badminton.shuttlestats.services.ClubMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/club={clubId}/roster")
-public class RosterController {
+public class ClubMemberController {
 
     @Autowired
-    private RosterService rosterService;
+    private ClubMemberService clubMemberService;
 
     @GetMapping("/")
     public ResponseEntity<List<Player>> getPlayersOfClub() {
@@ -24,8 +23,8 @@ public class RosterController {
     }
 
     @PostMapping("/addPlayer={playerId}")
-    public ResponseEntity<Roster> addPlayerToClubRoster(@PathVariable String clubId, @PathVariable String playerId) {
-        rosterService.savePlayerToRoster(clubId, playerId);
+    public ResponseEntity<ClubMember> addPlayerToClubRoster(@PathVariable String clubId, @PathVariable String playerId) {
+        clubMemberService.savePlayerToRoster(clubId, playerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

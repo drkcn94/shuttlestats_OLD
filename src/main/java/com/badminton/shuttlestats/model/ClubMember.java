@@ -1,6 +1,6 @@
 package com.badminton.shuttlestats.model;
 
-import com.badminton.shuttlestats.model.keys.RosterId;
+import com.badminton.shuttlestats.model.keys.ClubMemberId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,10 +11,10 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "roster")
-public class Roster implements Serializable {
+public class ClubMember implements Serializable {
 
     @EmbeddedId
-    private RosterId id;
+    private ClubMemberId id;
     @Column(name = "join_date")
     private LocalDate joinDate;
     @ManyToOne
@@ -32,20 +32,20 @@ public class Roster implements Serializable {
     )
     private Set<Player> players;
 
-    public Roster() {}
+    public ClubMember() {}
 
-    public Roster(RosterId rosterId, LocalDate joinDate) {
+    public ClubMember(ClubMemberId rosterId, LocalDate joinDate) {
         this.id = rosterId;
         this.joinDate = joinDate;
     }
 
-    public Roster(UUID clubId, UUID playerId){
-        this.id = new RosterId(clubId, playerId);
+    public ClubMember(UUID clubId, UUID playerId){
+        this.id = new ClubMemberId(clubId, playerId);
         this.joinDate = LocalDate.now();
     }
 
-    public Roster(Club club, Player player, LocalDate joinDate) {
-        this.id = new RosterId(club.getClubId(), player.getPlayerId());
+    public ClubMember(Club club, Player player, LocalDate joinDate) {
+        this.id = new ClubMemberId(club.getClubId(), player.getPlayerId());
         this.club = club;
         this.players = new HashSet<>();
         this.players.add(player);
@@ -65,7 +65,7 @@ public class Roster implements Serializable {
         id.setPlayerId(playerId);
     }
 
-    public void setId(RosterId rosterId) {
+    public void setId(ClubMemberId rosterId) {
         this.id = rosterId;
     }
 

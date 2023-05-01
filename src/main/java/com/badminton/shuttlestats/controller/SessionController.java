@@ -1,7 +1,7 @@
 package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Session;
-import com.badminton.shuttlestats.services.RosterService;
+import com.badminton.shuttlestats.services.ClubMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class SessionController {
 
     @Autowired
-    private RosterService rosterService;
+    private ClubMemberService clubMemberService;
 
     @GetMapping("/")
     public ResponseEntity<List<Session>> getSessionsOfClub() {

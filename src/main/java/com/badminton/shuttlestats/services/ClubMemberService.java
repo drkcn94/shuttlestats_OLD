@@ -1,38 +1,34 @@
 package com.badminton.shuttlestats.services;
 
-import com.badminton.shuttlestats.model.Club;
-import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.Roster;
-import com.badminton.shuttlestats.repositories.RosterRepository;
+import com.badminton.shuttlestats.model.ClubMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RosterService {
+public class ClubMemberService {
     @Autowired
-    private RosterRepository rosterRepository;
+    private com.badminton.shuttlestats.repositories.ClubMember rosterRepository;
     @Autowired
     private PlayerService playerService;
 
-    public RosterService() {}
+    public ClubMemberService() {}
 
 
      //TO COMPLETE
     public void savePlayerToRoster(String clubId, String playerId) {
-        Roster roster = new Roster(UUID.fromString(clubId), UUID.fromString(playerId));
+        ClubMember roster = new ClubMember(UUID.fromString(clubId), UUID.fromString(playerId));
         rosterRepository.save(roster);
     }
 
-    public List<Roster> findPlayersByClubId(UUID clubId) {
+    public List<ClubMember> findPlayersByClubId(UUID clubId) {
         return rosterRepository.findByIdClubId(clubId);
     }
 
-    public Optional<Roster> findPlayerByClubIdAndPlayerId(UUID clubId, UUID playerId) {
+    public Optional<ClubMember> findPlayerByClubIdAndPlayerId(UUID clubId, UUID playerId) {
         return rosterRepository.findByIdClubIdAndIdPlayerId(clubId,playerId);
     }
 

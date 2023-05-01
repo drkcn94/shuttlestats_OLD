@@ -2,7 +2,7 @@ package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Player;
 import com.badminton.shuttlestats.services.PlayerService;
-import com.badminton.shuttlestats.services.RosterService;
+import com.badminton.shuttlestats.services.ClubMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
     @Autowired
-    private RosterService rosterService;
+    private ClubMemberService clubMemberService;
 
     public PlayerController() {}
 
@@ -70,7 +70,7 @@ public class PlayerController {
     @DeleteMapping("/player={playerIdString}")
     public ResponseEntity<Void> deletePlayerById(@PathVariable String playerIdString) {
         UUID playerId = UUID.fromString(playerIdString);
-        rosterService.deleteRosterByPlayerId(playerId);
+        clubMemberService.deleteRosterByPlayerId(playerId);
         playerService.deletePlayerById(playerId);
         return ResponseEntity.noContent().build();
     }

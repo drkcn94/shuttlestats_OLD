@@ -21,7 +21,7 @@ public class Player {
     private String mainHand;
 
     @ManyToMany(mappedBy = "players")
-    private Set<Roster> rosters;
+    private Set<ClubMember> rosters;
 
     public Player() {}
 

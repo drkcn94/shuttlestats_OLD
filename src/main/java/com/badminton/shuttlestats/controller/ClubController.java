@@ -2,13 +2,10 @@ package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Club;
 import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.Roster;
-import com.badminton.shuttlestats.repositories.ClubRepository;
-import com.badminton.shuttlestats.repositories.PlayerRepository;
-import com.badminton.shuttlestats.repositories.RosterRepository;
+import com.badminton.shuttlestats.model.ClubMember;
 import com.badminton.shuttlestats.services.ClubService;
 import com.badminton.shuttlestats.services.PlayerService;
-import com.badminton.shuttlestats.services.RosterService;
+import com.badminton.shuttlestats.services.ClubMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +22,7 @@ public class ClubController {
     @Autowired
     private ClubService clubService;
     @Autowired
-    private RosterService rosterService;
+    private ClubMemberService clubMemberService;
     @Autowired
     private PlayerService playerService;
     public ClubController() {}
@@ -50,11 +47,11 @@ public class ClubController {
 
     @GetMapping("/{clubId}/players")
     public List<Player> getAllPlayersOfClub(@PathVariable UUID clubId) {
-        List<Roster> rosterIds = rosterService.findPlayersByClubId(clubId);
+        List<ClubMember> rosterIds = clubMemberService.findPlayersByClubId(clubId);
 
         List<UUID> playerIdsOfClub = new ArrayList<>();
 
-        for (Roster playerId : rosterIds) {
+        for (ClubMember playerId : rosterIds) {
             playerIdsOfClub.add(playerId.getPlayerId());
         }
 
@@ -67,7 +64,7 @@ public class ClubController {
 
     @GetMapping("/{clubId}/member/{playerId}")
     public ResponseEntity<Player> getPlayerOfClub(@PathVariable UUID clubId, UUID playerId) {
-        Optional<Roster> playerToFind = rosterService.findPlayerByClubIdAndPlayerId(clubId,playerId);
+        Optional<ClubMember> playerToFind = clubMemberService.findPlayerByClubIdAndPlayerId(clubId,playerId);
 
         if (playerToFind.isPresent()) {
             Optional<Player> player = playerService.getPlayerById(playerToFind.get().getPlayerId());
