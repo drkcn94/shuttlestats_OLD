@@ -90,7 +90,7 @@ public class ClubController {
         return new ResponseEntity<>(savedClub, HttpStatus.OK);
     }
 
-    @DeleteMapping("/club/{clubIdString}")
+    @DeleteMapping("/club={clubIdString}")
     public ResponseEntity<Void> deleteClubById(@PathVariable String clubIdString) {
         UUID clubId = UUID.fromString(clubIdString);
         clubService.deleteClubById(clubId);

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/clubs={clubId}/roster")
+@RequestMapping("/club={clubId}/roster")
 public class RosterController {
 
     @Autowired

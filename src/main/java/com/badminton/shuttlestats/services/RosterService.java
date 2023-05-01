@@ -18,13 +18,11 @@ public class RosterService {
     private RosterRepository rosterRepository;
     @Autowired
     private PlayerService playerService;
-    @Autowired
-    private ClubService clubService;
 
     public RosterService() {}
 
 
-    // TO COMPLETE
+     //TO COMPLETE
     public void savePlayerToRoster(String clubId, String playerId) {
         Roster roster = new Roster(UUID.fromString(clubId), UUID.fromString(playerId));
         rosterRepository.save(roster);
