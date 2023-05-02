@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ClubMember extends JpaRepository<com.badminton.shuttlestats.model.ClubMember, ClubMemberId> {
+public interface ClubMemberRepository extends JpaRepository<com.badminton.shuttlestats.model.ClubMember, ClubMemberId> {
     List<com.badminton.shuttlestats.model.ClubMember> findByIdClubId(UUID clubId);
 
     Optional<com.badminton.shuttlestats.model.ClubMember> findByIdClubIdAndIdPlayerId(UUID clubId, UUID playerId);
