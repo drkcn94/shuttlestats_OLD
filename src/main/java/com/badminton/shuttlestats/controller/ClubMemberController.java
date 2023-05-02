@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/club={clubId}/roster")
+@RequestMapping("/club={clubId}/member")
 public class ClubMemberController {
 
     @Autowired
@@ -22,18 +22,18 @@ public class ClubMemberController {
         return new ResponseEntity<List<Player>>(HttpStatus.OK);
     }
 
-    @PostMapping("/addPlayer={playerId}")
+    @PostMapping("/addMember={playerId}")
     public ResponseEntity<ClubMember> addPlayerToClubRoster(@PathVariable String clubId, @PathVariable String playerId) {
         clubMemberService.savePlayerToRoster(clubId, playerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteRoster")
-    public ResponseEntity<Void> deleteRoster(@PathVariable String clubId){
+    @DeleteMapping("/deleteAllMembersOfClub")
+    public ResponseEntity<Void> deleteAllMembersOfClub(@PathVariable String clubId){
         return ResponseEntity.noContent().build();
     }
-    @DeleteMapping("/deletePlayer")
-    public ResponseEntity<Void> deletePlayerFromRoster(@PathVariable String clubId, Player player) {
+    @DeleteMapping("/deleteMemberOfClub")
+    public ResponseEntity<Void> deleteMemberFromClub(@PathVariable String clubId, Player player) {
         return ResponseEntity.noContent().build();
     }
 

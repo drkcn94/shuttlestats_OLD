@@ -20,9 +20,6 @@ public class Player {
     @Column(name = "main_hand")
     private String mainHand;
 
-    @ManyToMany(mappedBy = "players")
-    private Set<ClubMember> rosters;
-
     public Player() {}
 
     public Player(Player player) {
