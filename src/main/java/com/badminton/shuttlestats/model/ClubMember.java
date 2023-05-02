@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ClubMembers")
+@Table(name = "ClubMember")
 public class ClubMember implements Serializable {
 
     @EmbeddedId
@@ -45,8 +45,8 @@ public class ClubMember implements Serializable {
         id.setPlayerId(playerId);
     }
 
-    public void setId(ClubMemberId rosterId) {
-        this.id = rosterId;
+    public void setId(ClubMemberId clubMemberId) {
+        this.id = clubMemberId;
     }
 
     public LocalDate getJoinDate() {
