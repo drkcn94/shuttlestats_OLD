@@ -81,13 +81,13 @@ public class ClubController {
         }
     }
 
-    @PostMapping("/club")
+    @PostMapping("/createClub")
     public ResponseEntity<Club> addClub(@RequestBody Club club) {
         Club savedClub = clubService.saveClub(club);
         return new ResponseEntity<>(savedClub, HttpStatus.OK);
     }
 
-    @DeleteMapping("/club={clubIdString}")
+    @DeleteMapping("/deleteClub={clubIdString}")
     public ResponseEntity<Void> deleteClubById(@PathVariable String clubIdString) {
         UUID clubId = UUID.fromString(clubIdString);
         clubService.deleteClubById(clubId);
