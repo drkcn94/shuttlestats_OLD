@@ -13,10 +13,11 @@ import java.util.UUID;
 
 @Service
 public class PlayerService {
-    @Autowired
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
-    public PlayerService() {}
+    public PlayerService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
 
     public List<Player> findAllPlayers() {
         return playerRepository.findAll();
