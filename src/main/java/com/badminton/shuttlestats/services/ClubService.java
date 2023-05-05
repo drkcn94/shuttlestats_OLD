@@ -30,6 +30,10 @@ public class ClubService {
     }
 
     public Club saveClub(Club clubDetails) {
+        if(clubDetails == null) {
+            throw new IllegalArgumentException();
+        }
+
         Club toSave = new Club(clubDetails.getClubName(), clubDetails.getPublicVisibility());
         clubRepository.save(toSave);
         return toSave;
