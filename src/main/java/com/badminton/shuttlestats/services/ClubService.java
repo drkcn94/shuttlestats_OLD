@@ -11,14 +11,15 @@ import java.util.UUID;
 
 @Service
 public class ClubService {
-    @Autowired
-    private ClubRepository clubRepository;
-    @Autowired
-    private PlayerService playerService;
-    @Autowired
-    private ClubMemberService clubMemberService;
+    private final ClubRepository clubRepository;
+    private final PlayerService playerService;
+    private final ClubMemberService clubMemberService;
 
-    public ClubService() {}
+    public ClubService(ClubRepository clubRepository, PlayerService playerService, ClubMemberService clubMemberService) {
+        this.clubRepository = clubRepository;
+        this.playerService = playerService;
+        this.clubMemberService = clubMemberService;
+    }
 
     public List<Club> getAllClubs() {
         return clubRepository.findAll();
