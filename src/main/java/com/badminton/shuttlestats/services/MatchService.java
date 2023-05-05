@@ -15,10 +15,11 @@ import java.util.UUID;
 
 @Service
 public class MatchService {
-    @Autowired
-    private MatchRepository matchRepository;
+    private final MatchRepository matchRepository;
 
-    public MatchService() {}
+    public MatchService(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
 
     public List<Match> getAllMatches() {
         return matchRepository.findAll();

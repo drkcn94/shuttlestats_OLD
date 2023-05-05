@@ -5,15 +5,16 @@ import com.badminton.shuttlestats.repositories.ClubRepository;
 import com.badminton.shuttlestats.services.ClubMemberService;
 import com.badminton.shuttlestats.services.ClubService;
 import com.badminton.shuttlestats.services.PlayerService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,11 +31,19 @@ public class ClubServiceTests {
 
     @Test
     public void saveClub() {
-        Club club = new Club("test_club", true);
+        Club club = new Club();
+        club.setClubName("test_club");
+        club.setPublicVisibility(true);
 
-        when(clubService.saveClub(club)).thenReturn(club);
-        Club toCheck = clubRepository.save(club);
+        when(clubRepository.save(any(Club.class))).thenReturn(club);
+        Club savedClub = clubService.saveClub(club);
 
-        assertEquals(club.getClubId(), toCheck.getClubId());
+        when(clubRepository.findById(savedClub.getClubId())).thenReturn(Optional.of(savedClub));
+        Club toCompare = clubService.getClubById(savedClub.getClubId()).get();
+
+        assertEquals(savedClub.getClubId().toString(), toCompare.getClubId().toString());
+        assertEquals(savedClub.getClubName(), toCompare.getClubName());
+        assertEquals(savedClub.getCreationDate(), toCompare.getCreationDate());
+        assertEquals(savedClub.getPublicVisibility(), toCompare.getPublicVisibility());
     }
 }

@@ -11,13 +11,14 @@ import java.util.UUID;
 
 @Service
 public class ClubMemberService {
+    private final ClubMemberRepository clubMemberRepository;
     @Autowired
-    private ClubMemberRepository clubMemberRepository;
-    @Autowired
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
-    public ClubMemberService() {}
-
+    public ClubMemberService(ClubMemberRepository clubMemberRepository, PlayerService playerService) {
+        this.clubMemberRepository = clubMemberRepository;
+        this.playerService = playerService;
+    }
 
      //TO COMPLETE
     public void savePlayerToRoster(String clubId, String playerId) {
