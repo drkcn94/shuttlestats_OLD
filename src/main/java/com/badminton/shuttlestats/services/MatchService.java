@@ -152,7 +152,7 @@ public class MatchService {
             int scoreDifference = Math.abs(teamOneScore - teamTwoScore);
 
             // Overtime match win conditions
-            // 1. Point Difference of 2 (up to 30-28)
+            // 1. Point Difference of 2 (up to 30-28/28-30)
             // 2. First to 30 (30-29)
             if (scoreDifference == 2 || scoreDifference == 1) {
                 if ((teamOneScore != 30 && teamTwoScore != 29) ||
