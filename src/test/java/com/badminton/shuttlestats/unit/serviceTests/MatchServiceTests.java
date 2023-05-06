@@ -113,19 +113,27 @@ public class MatchServiceTests {
         assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
     }
 
-//    @Test
-//    public void testValidateScore_InvalidOvertimeScoreThrows() {
-//        int teamOneScore = 24;
-//        int teamTwoScore = 19;
-//
-//        assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
-//    }
-//
-//    @Test
-//    public void testValidateScore_ValidRegularScore() {
-//        int teamOneScore = 9;
-//        int teamTwoScore = 21;
-//
-//        assertDoesNotThrow(() -> matchService.validateScore(teamOneScore,teamTwoScore));
-//    }
+    @Test
+    public void testValidateScore_InvalidOvertimeScoreThrows() {
+        int teamOneScore = 24;
+        int teamTwoScore = 19;
+
+        assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
+    }
+
+    @Test
+    public void testValidateScore_ValidRegularScore() {
+        int teamOneScore = 9;
+        int teamTwoScore = 21;
+
+        assertDoesNotThrow(() -> matchService.validateScore(teamOneScore,teamTwoScore));
+    }
+
+    @Test
+    public void testValidateScore_InvalidRegularScore() {
+        int teamOneScore = 21;
+        int teamTwoScore = 20;
+
+        assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
+    }
 }
