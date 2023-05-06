@@ -113,7 +113,7 @@ public class MatchService {
 
             for (Player player: teamTwoPlayers) {
                 if (player.getPlayerGender() == Gender.MALE.toString()) {
-                    teamOneGender++;
+                    teamTwoGender++;
                 }
                 else {
                     teamTwoGender--;
@@ -122,7 +122,7 @@ public class MatchService {
 
             if (teamOneGender == 2 && teamTwoGender == 2) {
                 matchReturnType = matchType.MENS_DOUBLES;
-            } else if (teamOneGender == -2 && teamTwoGender == 2) {
+            } else if (teamOneGender == -2 && teamTwoGender == -2) {
                 matchReturnType = matchType.WOMENS_DOUBLES;
             } else if (teamOneGender == 0 && teamTwoGender == 0) {
                 matchReturnType = matchType.MIXED_DOUBLES;
