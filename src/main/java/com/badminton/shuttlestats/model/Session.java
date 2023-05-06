@@ -20,6 +20,9 @@ public class Session implements Serializable {
     @Column(name = "session_location")
     private String sessionLocation;
 
+    @Column(name = "session_address")
+    private String sessionAddress;
+
     public Session() {}
 
     public Session(Session session) {
