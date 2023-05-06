@@ -154,20 +154,24 @@ public class MatchService {
             // Overtime match win conditions
             // 1. Point Difference of 2 (up to 30-28/28-30)
             // 2. First to 30 (30-29)
-            if (scoreDifference == 2 || scoreDifference == 1) {
+            if (scoreDifference == 1) {
                 if ((teamOneScore != 30 && teamTwoScore != 29) ||
                         (teamOneScore != 29 && teamTwoScore != 30)) {
                 }
+                else {
+                    throw new IllegalArgumentException();
+                }
             }
-
+            if (scoreDifference == 2) {}
             else {
                 throw new IllegalArgumentException();
             }
-
-
             // Check for regular score
-        } else if (teamOneScore == 21 || teamTwoScore == 21) {
+        } else if (teamOneScore == 21 && teamTwoScore <= 19 ||
+            teamOneScore <= 19 && teamTwoScore == 21) {
 
+        } else {
+            throw new IllegalArgumentException();
         }
 
     }
