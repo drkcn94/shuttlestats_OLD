@@ -131,6 +131,9 @@ public class MatchService {
         return matchReturnType;
     }
 
+    // TO REDO
+    // Need to implement way to validate that one of two scores is 21 while the other is equal or less than 19
+    // Need to implement way to check for valid over time score (2 point gap, first to 30 allowed to have 1 or 2 point gap)
     public void validateScore(int teamOneScore, int teamTwoScore) {
         if(teamOneScore < 0 || teamOneScore > 30 ||
             teamTwoScore < 0 || teamTwoScore > 30) {
