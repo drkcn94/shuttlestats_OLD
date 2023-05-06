@@ -139,7 +139,7 @@ public class MatchService {
 
         int totalScore = teamOneScore + teamTwoScore;
 
-        if (totalScore < 21 || (totalScore > 40 && totalScore < 42 ) || totalScore > 59) {
+        if (totalScore < 21 || (totalScore > 40 || totalScore < 42 ) || totalScore > 59) {
             throw new IllegalArgumentException();
         }
     }

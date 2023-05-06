@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MatchServiceTests {
@@ -122,4 +122,28 @@ public class MatchServiceTests {
 
         assertEquals(matchService.defineMatchType(team1, team2).toString(), "OTHER_DOUBLES");
     }
+
+    @Test
+    public void testValidateScore_BeyondBoundsThrows() {
+        int teamOneScore = 40;
+        int teamTwoScore = 15;
+
+        assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
+    }
+
+    @Test
+    public void testValidateScore_InvalidOvertimeScoreThrows() {
+        int teamOneScore = 24;
+        int teamTwoScore = 19;
+
+        assertThrows(IllegalArgumentException.class, () -> matchService.validateScore(teamOneScore,teamTwoScore));
+    }
+//
+//    @Test
+//    public void testValidateScore_ValidRegularScore() {
+//        int teamOneScore = 9;
+//        int teamTwoScore = 21;
+//
+//        assertDoesNotThrow(() -> matchService.validateScore(teamOneScore,teamTwoScore));
+//    }
 }
