@@ -135,23 +135,37 @@ public class MatchService {
     // Need to implement way to validate that one of two scores is 21 while the other is equal or less than 19
     // Need to implement way to check for valid over time score (2 point gap, first to 30 allowed to have 1 or 2 point gap)
     public void validateScore(int teamOneScore, int teamTwoScore) {
+        // Check for same score on both teams
+        if (teamOneScore == teamTwoScore) {
+            throw new IllegalArgumentException();
+        }
+
         // Check for out of bounds score
-        if(teamOneScore < 0 || teamOneScore > 30 ||
+        if (teamOneScore < 0 || teamOneScore > 30 ||
             teamTwoScore < 0 || teamTwoScore > 30) {
             throw new IllegalArgumentException();
         }
 
         // Check for overtime score
-        if (teamOneScore >= 22 && teamOneScore <= 30 ||
-        teamTwoScore >= 22 && teamTwoScore <= 30) {
+        if ((teamOneScore >= 22 && teamOneScore <= 30) &&
+                (teamTwoScore >= 22 && teamTwoScore <= 30)) {
             int scoreDifference = Math.abs(teamOneScore - teamTwoScore);
 
-            if (scoreDifference != 2 || scoreDifference != 1) {
+            // Overtime match win conditions
+            // 1. Point Difference of 2 (up to 30-28)
+            // 2. First to 30 (30-29)
+            if (scoreDifference == 2 || scoreDifference == 1) {
+                if ((teamOneScore != 30 && teamTwoScore != 29) ||
+                        (teamOneScore != 29 && teamTwoScore != 30)) {
+                }
+            }
+
+            else {
                 throw new IllegalArgumentException();
             }
 
 
-        // Check for regular score
+            // Check for regular score
         } else if (teamOneScore == 21 || teamTwoScore == 21) {
 
         }
