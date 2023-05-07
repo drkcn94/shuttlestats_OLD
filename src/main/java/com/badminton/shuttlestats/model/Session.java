@@ -5,6 +5,7 @@ import com.badminton.shuttlestats.model.keys.SessionId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.UUID;
 
 
 @Entity
@@ -41,7 +42,7 @@ public class Session implements Serializable {
         return sessionId;
     }
 
-    public void setSessionId(SessionId sessionId) {
+    public void setSessionId(UUID clubId) {
         this.sessionId = sessionId;
     }
 

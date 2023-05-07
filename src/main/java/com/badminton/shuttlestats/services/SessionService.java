@@ -15,7 +15,12 @@ public class SessionService {
 
     public List<Session> getAllSessions() { return sessionRepository.findAll(); }
 
-    public Session saveSession(UUID clubUUID, Session session) {
+    public Session saveSession(UUID clubId, Session session) {
+        if (clubId == null || session == null) {
+            throw new IllegalArgumentException();
+        }
+
+        session.setSessionId(clubId);
 
         return new Session();
     }

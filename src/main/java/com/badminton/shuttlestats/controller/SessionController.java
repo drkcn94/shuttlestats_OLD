@@ -29,9 +29,9 @@ public class SessionController {
     }
 
     @PostMapping("/addSession")
-    public ResponseEntity<Session> addSessionToClub(@PathVariable String clubUUID, @RequestBody Session session) {
+    public ResponseEntity<Session> addSessionToClub(@PathVariable String clubId, @RequestBody Session session) {
         try {
-            Session savedSession = sessionService.saveSession(UUID.fromString(clubUUID), session);
+            Session savedSession = sessionService.saveSession(UUID.fromString(clubId), session);
             return new ResponseEntity<>(savedSession, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
