@@ -28,7 +28,7 @@ public class MatchController {
     }
 
     @PostMapping("/session/match")
-    public ResponseEntity<Match> addMatch(@RequestBody UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+    public ResponseEntity<Match> addMatchToSession(@RequestBody UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
         try {
             Match savedMatch = matchService.saveMatch(sessionId, teamOnePlayers, teamTwoPlayers, teamOneScore,teamTwoScore);
             return new ResponseEntity<>(savedMatch, HttpStatus.OK);
