@@ -40,7 +40,7 @@ public class SessionController {
 
     @PutMapping("/updateSession")
     public ResponseEntity<Session> updateSessionFromClub (@RequestBody Session session) {
-
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteSession")
