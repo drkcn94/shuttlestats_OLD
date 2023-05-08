@@ -43,7 +43,8 @@ public class Session implements Serializable {
     }
 
     public void setSessionId(UUID clubId) {
-        this.sessionId = sessionId;
+        this.sessionId.setSessionId(UUID.randomUUID());
+        this.sessionId.setClubId(clubId);
     }
 
     public Date getSessionDate() {

@@ -38,6 +38,11 @@ public class SessionController {
         }
     }
 
+    @PutMapping("/updateSession")
+    public ResponseEntity<Session> updateSessionFromClub (@RequestBody Session session) {
+
+    }
+
     @DeleteMapping("/deleteSession")
     public ResponseEntity<Void> deleteSession() {
         return ResponseEntity.noContent().build();
