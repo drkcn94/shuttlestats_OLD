@@ -52,8 +52,7 @@ public class MatchService {
             throw new IllegalArgumentException();
         }
 
-        matchRepository.save(toSave);
-        return toSave;
+        return matchRepository.save(toSave);
     }
 
     public Match updateMatch(UUID sessionId, UUID matchId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
@@ -81,7 +80,9 @@ public class MatchService {
         return matchRepository.save(toUpdate);
     }
 
-    public void deleteMatchById(MatchId id) { matchRepository.deleteById(id);}
+    public void deleteMatchById(MatchId id) {
+        matchRepository.deleteById(id);
+    }
 
     public Enum defineMatchType(List<Player> teamOnePlayers, List<Player> teamTwoPlayers) {
         if(teamOnePlayers == null || teamTwoPlayers == null) {
@@ -131,9 +132,6 @@ public class MatchService {
         return matchReturnType;
     }
 
-    // TO REDO
-    // Need to implement way to validate that one of two scores is 21 while the other is equal or less than 19
-    // Need to implement way to check for valid over time score (2 point gap, first to 30 allowed to have 1 or 2 point gap)
     public void validateScore(int teamOneScore, int teamTwoScore) {
         // Check for same score on both teams
         if (teamOneScore == teamTwoScore) {
@@ -153,7 +151,7 @@ public class MatchService {
 
             // Overtime match win conditions
             // 1. Point Difference of 2 (up to 30-28/28-30)
-            // 2. First to 30 (30-29)
+            // 2. First to 30 (30-29/29-30)
             if (scoreDifference == 1) {
                 if ((teamOneScore != 30 && teamTwoScore != 29) ||
                         (teamOneScore != 29 && teamTwoScore != 30)) {
