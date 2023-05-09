@@ -28,6 +28,11 @@ public class SessionController {
         return new ResponseEntity<>(sessionService.getAllSessions(),HttpStatus.OK);
     }
 
+//    @GetMapping("={sessionId}/")
+//    public ResponseEntity<Session> getSessionFromClub(@PathVariable String sessionId) {
+//        return new ResponseEntity<Session>(sessionService.get)
+//    }
+
     @PostMapping("/addSession")
     public ResponseEntity<Session> addSessionToClub(@PathVariable String clubId, @RequestBody Session session) {
         try {
@@ -38,10 +43,12 @@ public class SessionController {
         }
     }
 
-    @PutMapping("/updateSession")
-    public ResponseEntity<Session> updateSessionFromClub (@RequestBody Session session) {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PutMapping("/updateSession")
+//    public ResponseEntity<Session> updateSessionFromClub (@RequestBody Session session) {
+//        try {
+//
+//        }
+//    }
 
     @DeleteMapping("/deleteSession")
     public ResponseEntity<Void> deleteSession() {

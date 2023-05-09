@@ -1,6 +1,5 @@
 package com.badminton.shuttlestats.services;
 
-import com.badminton.shuttlestats.model.Club;
 import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.repositories.SessionRepository;
 
@@ -19,19 +18,21 @@ public class SessionService {
 
     public List<Session> getAllSessions() { return sessionRepository.findAll(); }
 
+    public Optional<Session> getSessionBySession_SessionId(UUID sessionId) {
+        return sessionRepository.findBySessionId(sessionId);
+    }
+
     public Session saveSession(UUID clubId, Session session) {
         if (clubId == null || session == null) {
             throw new IllegalArgumentException();
         }
 
-        Optional<Club> toFind = clubService.getClubById(clubId);
-
-        if (toFind.isEmpty()) {
+        if (!clubService.checkClubExistsById(clubId)) {
             throw new IllegalArgumentException();
         }
 
         session.setSessionId(clubId);
 
-        return new Session();
+        return sessionRepository.save(session);
     }
 }
