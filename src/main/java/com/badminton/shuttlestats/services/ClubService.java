@@ -55,4 +55,6 @@ public class ClubService {
     public void deleteClubById(UUID clubId) {
         clubRepository.deleteById(clubId);
     }
+
+    public boolean checkClubExistsById(UUID clubId) { return clubRepository.existsById(clubId); }
 }
