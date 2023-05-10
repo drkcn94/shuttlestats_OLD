@@ -1,7 +1,5 @@
 package com.badminton.shuttlestats.model;
 
-import com.badminton.shuttlestats.model.keys.SessionId;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,8 +10,14 @@ import java.util.UUID;
 @Table(name = "session")
 public class Session implements Serializable {
 
-    @EmbeddedId
-    private SessionId sessionId;
+    @Id
+    @GeneratedValue
+    @Column(name = "session_id", columnDefinition = "BINARY(16")
+    private UUID sessionId;
+
+    @Column(name = "club_id")
+    @ManyToOne()
+    private UUID clubId;
 
     @Column(name = "session_date")
     private Date sessionDate;
@@ -32,19 +36,26 @@ public class Session implements Serializable {
         this.sessionLocation = session.getSessionLocation();
     }
 
-    public Session(SessionId sessionId, Date sessionDate, String sessionLocation) {
+    public Session(UUID sessionId, Date sessionDate, String sessionLocation) {
         this.sessionId = sessionId;
         this.sessionDate = sessionDate;
         this.sessionLocation = sessionLocation;
     }
 
-    public SessionId getSessionId() {
+    public UUID getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(UUID clubId) {
-        this.sessionId.setSessionId(UUID.randomUUID());
-        this.sessionId.setClubId(clubId);
+    public void setSessionId() {
+        this.sessionId = UUID.randomUUID();
+    }
+
+    public UUID getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(UUID clubId) {
+        this.clubId = clubId;
     }
 
     public Date getSessionDate() {

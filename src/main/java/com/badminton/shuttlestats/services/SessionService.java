@@ -33,7 +33,7 @@ public class SessionService {
             throw new IllegalArgumentException();
         }
 
-        session.setSessionId(clubId);
+        session.setSessionId();
 
         return sessionRepository.save(session);
     }
