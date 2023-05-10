@@ -15,8 +15,8 @@ public class Session implements Serializable {
     @Column(name = "session_id", columnDefinition = "BINARY(16")
     private UUID sessionId;
 
-    @Column(name = "club_id")
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "club_id", referencedColumnName = "club_id")
     private UUID clubId;
 
     @Column(name = "session_date")
