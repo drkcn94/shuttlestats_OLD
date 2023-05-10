@@ -2,11 +2,13 @@ package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.repositories.SessionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class SessionService {
 
     private final SessionRepository sessionRepository;

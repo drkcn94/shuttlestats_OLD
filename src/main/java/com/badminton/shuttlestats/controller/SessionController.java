@@ -3,7 +3,6 @@ package com.badminton.shuttlestats.controller;
 import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.services.ClubMemberService;
 import com.badminton.shuttlestats.services.SessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,13 @@ import java.util.UUID;
 @RequestMapping("/club={clubId}/session")
 public class SessionController {
 
-    @Autowired
-    private ClubMemberService clubMemberService;
+    private final ClubMemberService clubMemberService;
+    private final SessionService sessionService;
 
-    @Autowired
-    private SessionService sessionService;
-
-    public SessionController () {}
+    public SessionController (ClubMemberService clubMemberService, SessionService sessionService) {
+        this.clubMemberService = clubMemberService;
+        this.sessionService = sessionService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<Session>> getAllSessions() {
