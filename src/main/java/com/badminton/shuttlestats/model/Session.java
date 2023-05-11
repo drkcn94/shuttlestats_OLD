@@ -17,7 +17,7 @@ public class Session implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "club_id", referencedColumnName = "club_id")
-    private UUID clubId;
+    private Club club;
 
     @Column(name = "session_date")
     private Date sessionDate;
@@ -50,12 +50,12 @@ public class Session implements Serializable {
         this.sessionId = UUID.randomUUID();
     }
 
-    public UUID getClubId() {
-        return clubId;
+    public Club getClub() {
+        return club;
     }
 
-    public void setClubId(UUID clubId) {
-        this.clubId = clubId;
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public Date getSessionDate() {
