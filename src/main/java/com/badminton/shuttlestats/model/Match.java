@@ -1,17 +1,20 @@
 package com.badminton.shuttlestats.model;
 
-import com.badminton.shuttlestats.model.keys.MatchId;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "match")
 public class Match implements Serializable {
 
     @EmbeddedId
-    private MatchId matchId;
+    private UUID matchId;
+
+    @ManyToOne
+    @JoinColumn(name = "session_id", referencedColumnName = "session_id")
+    private Session session;
 
     @Column(name = "match_type")
     private String matchType;
@@ -35,9 +38,9 @@ public class Match implements Serializable {
     private Integer teamTwoScore;
 
     public Match() {}
-    public Match(UUID sessionId) {
-        this.matchId.setMatchId(UUID.randomUUID());
-        this.matchId.setSessionId(sessionId);
+    public Match(Session session) {
+        this.setMatchId(UUID.randomUUID());
+        this.setSession(session);
     }
     public Match(Match match) {
         this.matchId = match.getMatchId();
@@ -50,7 +53,7 @@ public class Match implements Serializable {
         this.teamTwoScore = match.getTeamTwoScore();
     }
 
-    public Match(MatchId matchId, String matchType, UUID playerOneId, UUID playerTwoId, Integer teamOneScore, Integer teamTwoScore) {
+    public Match(UUID matchId, String matchType, UUID playerOneId, UUID playerTwoId, Integer teamOneScore, Integer teamTwoScore) {
         this.matchId = matchId;
         this.matchType = matchType;
         this.playerOneId = playerOneId;
@@ -59,7 +62,7 @@ public class Match implements Serializable {
         this.teamTwoScore = teamTwoScore;
     }
 
-    public Match(MatchId matchId, String matchType, UUID playerOneId, UUID playerTwoId, UUID playerThreeId, UUID playerFourId, Integer teamOneScore, Integer teamTwoScore) {
+    public Match(UUID matchId, String matchType, UUID playerOneId, UUID playerTwoId, UUID playerThreeId, UUID playerFourId, Integer teamOneScore, Integer teamTwoScore) {
         this.matchId = matchId;
         this.matchType = matchType;
         this.playerOneId = playerOneId;
@@ -70,12 +73,20 @@ public class Match implements Serializable {
         this.teamTwoScore = teamTwoScore;
     }
 
-    public MatchId getMatchId() {
+    public UUID getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(MatchId matchId) {
+    public void setMatchId(UUID matchId) {
         this.matchId = matchId;
+    }
+
+    public UUID getSessionId() {
+        return session.getSessionId();
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     public String getMatchType() {

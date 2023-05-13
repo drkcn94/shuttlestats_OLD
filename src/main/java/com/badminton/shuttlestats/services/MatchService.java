@@ -2,11 +2,10 @@ package com.badminton.shuttlestats.services;
 
 import com.badminton.shuttlestats.model.Match;
 import com.badminton.shuttlestats.model.Player;
+import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.model.enums.Gender;
 import com.badminton.shuttlestats.model.enums.matchType;
-import com.badminton.shuttlestats.model.keys.MatchId;
 import com.badminton.shuttlestats.repositories.MatchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,12 +26,12 @@ public class MatchService {
 
 
     // TO BE COMPLETED
-    public Match saveMatch(UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+    public Match saveMatch(Session session, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
         if(teamOnePlayers == null || teamTwoPlayers == null) {
             throw new IllegalArgumentException();
         }
 
-        Match toSave = new Match(sessionId);
+        Match toSave = new Match(session);
 
         toSave.setMatchType(defineMatchType(teamOnePlayers, teamTwoPlayers).toString());
         toSave.setTeamOneScore(teamOneScore);
@@ -61,9 +60,7 @@ public class MatchService {
         }
         validateScore(teamOneScore,teamTwoScore);
 
-        MatchId matchToFind = new MatchId(sessionId, matchId);
-
-        Match toUpdate = matchRepository.getById(matchToFind);
+        Match toUpdate = matchRepository.getById(matchId);
 
         if(toUpdate.getMatchType() != defineMatchType(teamOnePlayers, teamTwoPlayers).toString()) {
             toUpdate.setMatchType(defineMatchType(teamOnePlayers, teamTwoPlayers).toString());
@@ -80,7 +77,7 @@ public class MatchService {
         return matchRepository.save(toUpdate);
     }
 
-    public void deleteMatchById(MatchId id) {
+    public void deleteMatchById(UUID id) {
         matchRepository.deleteById(id);
     }
 

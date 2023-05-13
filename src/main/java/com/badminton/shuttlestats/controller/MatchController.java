@@ -2,7 +2,7 @@ package com.badminton.shuttlestats.controller;
 
 import com.badminton.shuttlestats.model.Match;
 import com.badminton.shuttlestats.model.Player;
-import com.badminton.shuttlestats.model.keys.MatchId;
+import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.services.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +28,9 @@ public class MatchController {
     }
 
     @PostMapping("/session/match")
-    public ResponseEntity<Match> addMatchToSession(@RequestBody UUID sessionId, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
+    public ResponseEntity<Match> addMatchToSession(@RequestBody Session session, List<Player> teamOnePlayers, List<Player> teamTwoPlayers, int teamOneScore, int teamTwoScore) {
         try {
-            Match savedMatch = matchService.saveMatch(sessionId, teamOnePlayers, teamTwoPlayers, teamOneScore,teamTwoScore);
+            Match savedMatch = matchService.saveMatch(session, teamOnePlayers, teamTwoPlayers, teamOneScore,teamTwoScore);
             return new ResponseEntity<>(savedMatch, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -52,8 +52,7 @@ public class MatchController {
         UUID sessionIdToFind = UUID.fromString(sessionId);
         UUID matchIdToFind = UUID.fromString(matchId);
 
-        MatchId matchToDelete = new MatchId(sessionIdToFind,matchIdToFind);
-        matchService.deleteMatchById(matchToDelete);
+        matchService.deleteMatchById(UUID.fromString(matchId));
         return ResponseEntity.noContent().build();
     }
 }
