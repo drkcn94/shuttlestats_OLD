@@ -1,6 +1,6 @@
 package com.badminton.shuttlestats.model.enums;
 
-public enum matchType {
+public enum MatchType {
     MENS_SINGLES,
     WOMENS_SINGLES,
     MENS_DOUBLES,
