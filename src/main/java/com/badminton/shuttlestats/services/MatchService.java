@@ -4,7 +4,7 @@ import com.badminton.shuttlestats.model.Match;
 import com.badminton.shuttlestats.model.Player;
 import com.badminton.shuttlestats.model.Session;
 import com.badminton.shuttlestats.model.enums.Gender;
-import com.badminton.shuttlestats.model.enums.matchType;
+import com.badminton.shuttlestats.model.enums.MatchType;
 import com.badminton.shuttlestats.repositories.MatchRepository;
 import org.springframework.stereotype.Service;
 
@@ -86,17 +86,17 @@ public class MatchService {
             throw new IllegalArgumentException();
         }
 
-        Enum<matchType> matchReturnType = matchType.OTHER_SINGLES;
+        Enum<MatchType> matchReturnType = MatchType.OTHER_SINGLES;
         if (teamOnePlayers.size() == 1 && teamTwoPlayers.size() == 1) {
             if (teamOnePlayers.get(0).getPlayerGender() == Gender.MALE.toString() && teamTwoPlayers.get(0).getPlayerGender() == Gender.MALE.toString()) {
-                matchReturnType = matchType.MENS_SINGLES;
+                matchReturnType = MatchType.MENS_SINGLES;
             }
             else if (teamOnePlayers.get(0).getPlayerGender() == Gender.FEMALE.toString() && teamTwoPlayers.get(0).getPlayerGender() == Gender.FEMALE.toString()) {
-                matchReturnType = matchType.WOMENS_SINGLES;
+                matchReturnType = MatchType.WOMENS_SINGLES;
             }
         }
         else {
-            matchReturnType = matchType.OTHER_DOUBLES;
+            matchReturnType = MatchType.OTHER_DOUBLES;
             int teamOneGender = 0;
             int teamTwoGender = 0;
 
@@ -119,11 +119,11 @@ public class MatchService {
             }
 
             if (teamOneGender == 2 && teamTwoGender == 2) {
-                matchReturnType = matchType.MENS_DOUBLES;
+                matchReturnType = MatchType.MENS_DOUBLES;
             } else if (teamOneGender == -2 && teamTwoGender == -2) {
-                matchReturnType = matchType.WOMENS_DOUBLES;
+                matchReturnType = MatchType.WOMENS_DOUBLES;
             } else if (teamOneGender == 0 && teamTwoGender == 0) {
-                matchReturnType = matchType.MIXED_DOUBLES;
+                matchReturnType = MatchType.MIXED_DOUBLES;
             }
         }
         return matchReturnType;

@@ -28,6 +28,9 @@ public class Session implements Serializable {
     @Column(name = "session_address")
     private String sessionAddress;
 
+    @Column(name = "session_status")
+    private String sessionStatus;
+
     public Session() {}
 
     public Session(Session session) {
@@ -72,5 +75,13 @@ public class Session implements Serializable {
 
     public void setSessionLocation(String sessionLocation) {
         this.sessionLocation = sessionLocation;
+    }
+
+    public String getSessionAddress() {
+        return sessionStatus;
+    }
+
+    public void setSessionStatus(String sessionStatus) {
+        this.sessionStatus = sessionStatus;
     }
 }
