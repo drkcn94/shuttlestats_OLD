@@ -31,6 +31,9 @@ public class Session implements Serializable {
     @Column(name = "session_status")
     private String sessionStatus;
 
+    @Column(name = "require_organizer_approval")
+    private Boolean requireOrganizerApproval;
+
     public Session() {}
 
     public Session(Session session) {
