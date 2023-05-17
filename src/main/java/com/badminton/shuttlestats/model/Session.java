@@ -28,6 +28,9 @@ public class Session implements Serializable {
     @Column(name = "session_address")
     private String sessionAddress;
 
+    @Column(name = "session_max_capacity")
+    private int maxCapacity;
+
     @Column(name = "session_status")
     private String sessionStatus;
 
