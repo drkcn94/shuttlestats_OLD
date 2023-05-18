@@ -37,6 +37,12 @@ public class Session implements Serializable {
     @Column(name = "require_organizer_approval")
     private Boolean requireOrganizerApproval;
 
+    @Column(name = "min_skill_level")
+    private String minSkillLevel;
+
+    @Column(name = "max_skill_level")
+    private String maxSkillLevel;
+
     public Session() {}
 
     public Session(Session session) {
